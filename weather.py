@@ -3,6 +3,7 @@ import json
 import appindicator
 import pynotify
 import gtk
+import signal
 
 # Create new app indicator with name and icon:
 app = appindicator.Indicator("weatherpy", '/home/joe/weatherpy/icons/sun.png', appindicator.CATEGORY_APPLICATION_STATUS)
@@ -21,6 +22,7 @@ menu.append(qi)
 app.set_menu(menu)
 gw.show()
 qi.show()
+
 
 # Get info from Dark Sky, only daily forcasts by exclude minutely and hourly forecasts:
 r = requests.get("https://api.darksky.net/forecast/2b41959f8298b697485d46bea2477504/41.443234,-81.774603?exclude=minutely,hourly")
