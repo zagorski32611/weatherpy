@@ -1,7 +1,6 @@
 import requests
 import json
 import notify2
-
 # Get info from Dark Sky, only daily forcasts by exclude minutely and hourly forecasts:
 r = requests.get("https://api.darksky.net/forecast/2b41959f8298b697485d46bea2477504/41.443234,-81.774603?exclude=minutely,hourly")
 
@@ -12,7 +11,7 @@ def get_weather():
     else:
         weather = r.json()
         return weather
-#print get_weather()
+print get_weather()
 
 # Parse the JSON payload
 def parse_weather():
@@ -20,10 +19,17 @@ def parse_weather():
     #return weather["hourly"]["data"][0]['precipType']
     global current_temp
     global summary
-    global icon_json
+    global current_icon
+    global future_summary
+    global future_icon
     current_temp = weather["currently"]["temperature"]
     summary = weather["currently"]["summary"]
-    icon_json = weather["currently"]["icon"]
+    current_icon = weather["currently"]["icon"]
+    future_summary = [1]
+    future_icon = [1]
+
+#{u'currently': {u'ozone': 366.78, u'windGust': 5.39, u'temperature': 36.33, u'dewPoint': 34.33, u'nearestStormDistance': 23, u'humidity': 0.92, u'nearestStormBearing': 321, u'summary': u'Mostly Cloudy', u'apparentTemperature': 36.33, u'pressure': 1007.64, u'windSpeed': 2.97, u'precipProbability': 0, u'visibility': 4.69, u'cloudCover': 0.78, u'time': 1517774124, u'windBearing': 286, u'precipIntensity': 0, u'uvIndex': 1, u'icon': u'partly-cloudy-day'}, u'daily': {u'icon': u'snow', u'data': #[{u'apparentTemperatureMinTime': 1517803200, u'precipType': u'snow', u'temperatureLow': 15.42, u'precipIntensityMaxTime': 1517760000, u'temperatureMin': 20.7, u'temperatureHigh': 36.66, u'summary':
+
 
 print parse_weather()
 
@@ -54,8 +60,9 @@ def get_icon(input):
 
 # Message for notification bubble
 w_message = "It is currently %s degress" % current_temp + " with " + summary
-image = get_icon(icon_json)
-
+current_image = get_icon(current_icon)
+future_message = "Tomorrow will be %s  " % future_summary
+future_icon = get_icon(future_icon)
 # Create the notificaiton bubble:
 
 def sendweather(title, message, image):
@@ -65,4 +72,4 @@ def sendweather(title, message, image):
     title = "Current Weather"
     #message = parse_weather()
     return
-sendweather("Current Weather", w_message, image)
+sendweather("Current Weather", w_message, current_image)
