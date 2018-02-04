@@ -5,25 +5,6 @@ import notify2
 import gtk
 import signal
 
-# Create new app indicator with name and icon:
-app = appindicator.Indicator("weatherpy", '/home/joe/weatherpy/icons/sun.png', appindicator.CATEGORY_APPLICATION_STATUS)
-app.set_status(appindicator.STATUS_ACTIVE)
-
-# Create app menu:
-menu = gtk.Menu()
-gw = gtk.MenuItem("Get Weather")
-qi = gtk.MenuItem("Quit")
-
-# append gw and qi to Menu
-menu.append(gw)
-menu.append(qi)
-
-# set menu to application:
-app.set_menu(menu)
-gw.show()
-qi.show()
-
-
 # Get info from Dark Sky, only daily forcasts by exclude minutely and hourly forecasts:
 r = requests.get("https://api.darksky.net/forecast/2b41959f8298b697485d46bea2477504/41.443234,-81.774603?exclude=minutely,hourly")
 
