@@ -50,9 +50,6 @@ def parse_weather():
 
 print parse_weather()
 
-# Message for notification bubble
-w_message = "It is currently %s degress" % current_temp + " with " + summary
-image = get_icon(icon_json)
 
 # Logic for notification icon based on icon from payload:
 
@@ -78,7 +75,10 @@ def get_icon(input):
     else:
         return "/home/joe/weatherpy/icons/sun.png"
 
-"""partly-cloudy-day, or partly-cloudy-night"""
+# Message for notification bubble
+w_message = "It is currently %s degress" % current_temp + " with " + summary
+image = get_icon(icon_json)
+
 # Create the notificaiton bubble:
 
 def sendweather(title, message, image):
