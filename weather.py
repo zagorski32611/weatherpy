@@ -43,15 +43,42 @@ def parse_weather():
     #return weather["hourly"]["data"][0]['precipType']
     global current_temp
     global summary
+    global icon
     current_temp = weather["currently"]["temperature"]
     summary = weather["currently"]["summary"]
-    icon = weather["currently"]["icon"]
+    icon_json = weather["currently"]["icon"]
 
 print parse_weather()
 
 # Message for notification bubble
 w_message = "It is currently %s degress" % current_temp + " with " + summary
-image ='/home/joe/weatherpy/icons/sun.png'
+image = get_icon(icon_json)
+
+# Logic for notification icon based on icon from payload:
+
+def get_icon(input):
+    if input == "clear-day":
+        return "/home/joe/weatherpy/icons/sun.png"
+    elif input == "clear-night":
+        return "/home/joe/weatherpy/icons/moon.png"
+    elif input == "rain" or input == "sleet":
+        return "/home/joe/weatherpy/icons/drizzle.png"
+    elif input == "snow":
+        return "/home/joe/weatherpy/icons/snow.png"
+    elif input == "wind":
+        return "/home/joe/weatherpy/icons/wind.png"
+    elif input == "fog":
+        return "/home/joe/weatherpy/icons/fog.png"
+    elif input == "cloudy":
+        return "/home/joe/weatherpy/icons/cloudy.png"
+    elif input == "partly-cloudy-day":
+        return "/home/joe/weatherpy/icons/partlycloudy_day.png"
+    elif input == "partly-cloudy-night":
+        return "/home/joe/weatherpy/icons/partlycloudy_night.png"
+    else:
+        return "/home/joe/weatherpy/icons/sun.png"
+
+"""partly-cloudy-day, or partly-cloudy-night"""
 # Create the notificaiton bubble:
 
 def sendweather(title, message, image):
