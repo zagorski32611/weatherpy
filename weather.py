@@ -1,7 +1,7 @@
 import requests
 import json
 import appindicator
-import pynotify
+import notify2
 import gtk
 import signal
 
@@ -36,6 +36,7 @@ def get_weather():
         return weather
 #print get_weather()
 
+# Parse the JSON payload
 def parse_weather():
     weather = get_weather()
     #return weather["hourly"]["data"][0]['precipType']
@@ -47,13 +48,16 @@ def parse_weather():
 
 print parse_weather()
 
+# Message for notification bubble
 w_message = "It is currently %s degress" % current_temp + " with " + summary
+image ='/home/joe/weatherpy/icons/sun.png'
+# Create the notificaiton bubble:
 
-def sendmessage(title, message):
-    pynotify.init("Test")
-    notice = pynotify.Notification(title, message)
+def sendweather(title, message, image):
+    notify2.init("Test")
+    notice = notify2.Notification(title, message, image)
     notice.show()
     title = "Current Weather"
-    message = parse_weather()
+    #message = parse_weather()
     return
-sendmessage("Current Weather", w_message)
+sendweather("Current Weather", w_message, image)
