@@ -43,7 +43,7 @@ def parse_weather():
     #return weather["hourly"]["data"][0]['precipType']
     global current_temp
     global summary
-    global icon
+    global icon_json
     current_temp = weather["currently"]["temperature"]
     summary = weather["currently"]["summary"]
     icon_json = weather["currently"]["icon"]
