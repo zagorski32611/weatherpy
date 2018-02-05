@@ -73,3 +73,11 @@ def sendweather(title, message, image):
     #message = parse_weather()
     return
 sendweather("Current Weather", w_message, current_image)
+
+def sendtomweather(title, message, image):
+    notify2.init("Test")
+    notice = notify2.Notification(title, message, image)
+    notice.show()
+    title = "Tomorrow's weather"
+    return
+sendtomweather("Tomorrow's Weather", future_message, future_icon)
